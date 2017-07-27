@@ -19,8 +19,8 @@ if __name__ == '__main__':
     update_path - list of pathes for updates (local path (Linux-compatible or urls),
     interval - timeout for next update check
 """
-    import _uploader as rl
-    rl.run_reloader(
+    import _updater as up
+    up.run_reloader(
         f_main,
         update_path=[
                 '/ms71/temp/upd.zip',
