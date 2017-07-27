@@ -1,5 +1,7 @@
 # coding: utf-8
-
+"""
+using Python 3.6 only
+"""
 __appname__ = 'selfupdater'
 __version__ = '2017.208.1030'
 
@@ -103,4 +105,3 @@ def run_reloader(main_func, update_path=None, interval=1):
     except Exception as Err:
         print(Err)
         sys.exit(0)
-
