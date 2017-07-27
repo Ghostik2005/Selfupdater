@@ -1,8 +1,7 @@
 # coding: utf-8
 
-__appname__ = 'autoreloader'
-__version__ = '2017.208.1030' #using multiprocessing instead of threading
-#__version__ = '2017.207.1730' #autoreloader
+__appname__ = 'selfupdater'
+__version__ = '2017.208.1030'
 
 import os
 import sys
@@ -12,7 +11,6 @@ import signal
 import subprocess
 import urllib.request
 import multiprocessing
-from itertools import chain
 
 def _get_args_for_reloading():
     ret_val = [sys.executable,]
