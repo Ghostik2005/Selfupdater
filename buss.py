@@ -1,5 +1,7 @@
 # coding: utf-8
-
+"""
+main bussunes application
+"""
 import time
 
 def f_main():
@@ -17,7 +19,7 @@ if __name__ == '__main__':
     update_path - list of pathes for updates (local path (Linux-compatible or urls),
     interval - timeout for next update check
 """
-    import libs._reloader as rl
+    import _uploader as rl
     rl.run_reloader(
         f_main,
         update_path=[
