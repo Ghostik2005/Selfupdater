@@ -3,7 +3,7 @@ What is Selfupdater?
 
   Selfupdater is a small script, wrapping the main bussiness Python-writing application
 and allows to get the new version of application from different sources. After
-uploading of applocation, Selfupdater reload the main application.
+uploading of application, Selfupdater reload the main application.
   It works with pure python script and from zip-archived script.
 
 What do I need?
@@ -14,7 +14,7 @@ Selfupdater is run under Python 3.6 only.
 Usage
 ===============
 
-Here's one of the simplest applications you can make::
+Here's one of the simplest applications you can make:
 
     def f_main():
         #main bussiness logic
