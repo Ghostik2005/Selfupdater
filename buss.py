@@ -23,7 +23,7 @@ if __name__ == '__main__':
     up.run_reloader(
         f_main,
         update_path=[
-                '/ms71/temp/upd.zip',
+                '/home/user/temp/upd.zip',
                 'http://update.url',
             ],
         interval=5

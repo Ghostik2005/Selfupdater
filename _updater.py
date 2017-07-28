@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-using Python 3.6 only
+Python 3.6 only because using f-strings
 """
 __appname__ = 'selfupdater'
 __version__ = '2017.208.1030'
@@ -60,8 +60,8 @@ class _reloader_class(object):
                 return exit_code
 
     def _reload(self, path_type, filename):
-        f_path = os.path.abspath(sys.argv[0])
-        new_fname = os.path.join(os.path.dirname(f_path), 'new_file.zip')
+        cur_fname = os.path.abspath(sys.argv[0])
+        new_fname = os.path.join(os.path.dirname(cur_fname), 'new_file.zip')
         if 'local' in path_type:
             shutil.copy2(filename, new_fname)
         else:
@@ -70,10 +70,10 @@ class _reloader_class(object):
                     data = u_open.read()
             with open(new_fname, 'wb') as f_open:
                 f_open.write(data)
-        old_fname = f'{f_path}.old'
-        shutil.move(f_path, old_fname)
-        shutil.move(new_fname, f_path)
-        print('\n--|| file %r has been changed, reloading' % filename, flush=True)
+        old_fname = f'{cur_fname}.old'
+        shutil.move(cur_fname, old_fname)
+        shutil.move(new_fname, cur_fname)
+        print(f'\n--|| file {filename} has been changed, reloading', flush=True)
         sys.exit(3)
 
     def run(self):
