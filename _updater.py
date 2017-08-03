@@ -102,6 +102,7 @@ def run_reloader(main_func, update_path=None, interval=1):
     except KeyboardInterrupt:
         print('\n', flush=True)
         print('Keyboard break, exiting...', flush=True)
+        sys.exit(0)
     except Exception as Err:
         print(Err)
         sys.exit(0)
