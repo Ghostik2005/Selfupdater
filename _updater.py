@@ -31,8 +31,7 @@ def _get_params(update_path):
                         _param = int(u_open.info()['Content-Length'])
                         p_type = 'url'
             except Exception as Err:
-                #print('\n', Err, flush=True)
-                pass
+                print('\n', Err, flush=True)
         else:
             try:
                 _param = int(os.stat(path).st_size)
@@ -47,7 +46,55 @@ class _reloader_class(object):
     def __init__(self, update_path=None, interval=1):
         self.selfparam = int(os.stat(os.path.abspath(sys.argv[0])).st_size)
         self.update_path = update_path
+=======
+# coding: utf-8
+"""
+Python 3.6 only because using f-strings
+"""
+__appname__ = 'selfupdater'
+__version__ = '2017.208.1030'
+
+import os
+import sys
+import time
+import shutil
+import signal
+import subprocess
+import urllib.request
+import multiprocessing
+
+def _get_args_for_reloading():
+    ret_val = [sys.executable,]
+    ret_val.append(sys.argv[0])
+    ret_val.extend(sys.argv[1:])
+    return ret_val
+
+def _get_params(update_path):
+    for path in update_path:
+        p_type = None
         self.interval = interval
+        if 'http' in path:
+            try:
+                with urllib.request.urlopen(path, timeout=2) as u_open:
+                    if u_open.getcode() == 200:
+                        _param = int(u_open.info()['Content-Length'])
+                        p_type = 'url'
+            except Exception as Err:
+                print('\n', Err, flush=True)
+        else:
+            try:
+                _param = int(os.stat(path).st_size)
+                p_type = 'local'
+            except OSError:
+                continue
+        yield p_type, _param, path
+
+class _reloader_class(object):
+    _sleep = staticmethod(time.sleep)
+
+    def __init__(self, update_path=None, interval=1):
+        self.selfparam = int(os.stat(os.path.abspath(sys.argv[0])).st_size)
+        self.interval = interval*1000 #convert s to ms
 
     def restart_with_reloader(self, pid):
         while True:
@@ -91,6 +138,9 @@ class _reloader_class(object):
             self._sleep(self.interval)
 
 def run_reloader(main_func, update_path=None, interval=1):
+    #ecnode stdout and stderr to utf-8
+    sys.stdout = open(sys.stdout.fileno(), mode='w', buffering=1, encoding='UTF-8')
+    sys.stderr = open(sys.stderr.fileno(), mode='w', buffering=1, encoding='UTF-8')
     reloader = _reloader_class(update_path, interval)
     signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
     try:
@@ -102,7 +152,6 @@ def run_reloader(main_func, update_path=None, interval=1):
     except KeyboardInterrupt:
         print('\n', flush=True)
         print('Keyboard break, exiting...', flush=True)
-        sys.exit(0)
     except Exception as Err:
-        print(Err)
+        print(Err, flush=True)
         sys.exit(0)

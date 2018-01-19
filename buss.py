@@ -17,7 +17,7 @@ if __name__ == '__main__':
     """
     first argument - main bussines function,
     update_path - list of pathes for updates (local path (Linux-compatible or urls),
-    interval - timeout for next update check
+    interval - timeout for next update check, in seconds
 """
     import _updater as up
     up.run_reloader(
